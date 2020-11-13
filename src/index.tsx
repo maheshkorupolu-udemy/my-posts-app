@@ -1,14 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Router } from "react-router-dom";
+import { createBrowserHistory } from "history";
+import "react-toastify/dist/ReactToastify.min.css";
+import "react-widgets/dist/css/react-widgets.css";
+import "./app/layout/styles.css";
+import App from "./app/layout/App";
+import * as serviceWorker from "./serviceWorker";
+import ScrollToTop from "./app/layout/ScrollToTop";
+import { StoreProvider } from "./app/stores/helpers/storeContext";
+import { createStore } from "./app/stores/helpers/createStore";
+
+export const history = createBrowserHistory();
+
+const rootStore = createStore();
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  <Router history={history}>
+    <ScrollToTop>
+      <StoreProvider value={rootStore}>
+        <App></App>
+      </StoreProvider>
+    </ScrollToTop>
+  </Router>,
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
